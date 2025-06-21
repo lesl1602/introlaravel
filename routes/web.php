@@ -6,11 +6,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Rutas get y post
+// RUSTAS GET Y POST
+
+//Ruta GET
 Route::get('/saludo', function () {
     return "¡Hola Mundo desde una ruta básica!";
 })->name('saludo.basico');
 
+//Ruta POST
 Route::get('/formulario', function () {
     return '<form action="/contacto" method="POST">' . csrf_field() . '<button type="submit">Enviar Petición POST</button></form>';
 })->name('formulario.mostrar');
@@ -51,3 +54,15 @@ Route::get('/categoria/{nombre}', function ($nombre) {
 Route::get('/producto/{id}', function ($id) {
     return "Detalles del producto con ID: {$id}";
 })->where('id', '[0-9]+')->name('producto.detalles');
+
+//RUTAS DE REDIRECCIÓN Y VISTAS
+
+// Redirige de '/antigua-ruta' a '/nueva-ruta' con un código de estado 301 (permanente)
+Route::redirect('/antigua-ruta', '/saludo', 301)->name('redireccion.permanente');
+Route::view('/informacion', 'pagina_info', ['nombre' => 'Invitado'])->name('pagina.informacion');
+
+//RUTAS DE TIPO RECURSO
+
+//Llamamos controlador
+use App\Http\Controllers\PhotoController;
+Route::resource('photos', PhotoController::class);
