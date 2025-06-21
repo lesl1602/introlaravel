@@ -30,3 +30,24 @@ Route::put('/recurso/actualizar', function () {
 Route::delete('/recurso/eliminar', function () {
     return "Recurso eliminado con DELETE.";
 })->name('recurso.eliminar');
+
+//RUTAS CON PARAMETROS 
+
+// Parámetro obligatorio
+Route::get('/usuario/{id}', function ($id) {
+    return "Mostrando el perfil del usuario: {$id}";
+})->name('usuario.perfil');
+
+// Parámetro opcional
+Route::get('/post/{slug?}', function ($slug = 'valor-por-defecto') {
+    return "Mostrando el post: {$slug}";
+})->name('post.mostrar');
+
+//Parámetros expresiones regulares
+Route::get('/categoria/{nombre}', function ($nombre) {
+    return "Viendo artículos de la categoría: {$nombre}";
+})->where('nombre', '[A-Za-z]+')->name('categoria.articulos');
+
+Route::get('/producto/{id}', function ($id) {
+    return "Detalles del producto con ID: {$id}";
+})->where('id', '[0-9]+')->name('producto.detalles');
